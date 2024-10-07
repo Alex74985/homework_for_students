@@ -22,4 +22,17 @@ def recover_article() -> str:
     wrong_article = get_wrong_article()
 
     # Ваш код ниже, возвращайте уже отредактированный текст!
-    return wrong_article
+
+    wrong_article = wrong_article.split('\n')
+    correct_article = []
+    for sen in wrong_article:
+        sen = ''.join(reversed(sen))
+        sen = sen[len(sen)//2 + 1:]
+        sen = sen.replace('WOOF-WOOF', 'cat')
+        if sen != '':
+            sen = sen.capitalize() + '.'
+        correct_article.append(sen)
+
+    correct_article = '\n'.join(correct_article)
+
+    return correct_article

@@ -14,4 +14,7 @@ pytest ./1_two_string_array_equivalent/test.py
 
 def is_array_string_are_equal(array_string_1: list[str], array_string_2: list[str]) -> bool:
     """Пишите ваш код здесь."""
+    str1 = ''.join(array_string_1).lower()
+    str2 = ''.join(array_string_2).lower()
+    return str1 == str2
 
