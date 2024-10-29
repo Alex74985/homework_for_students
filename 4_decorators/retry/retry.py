@@ -24,10 +24,13 @@ def retry(count: int, delay: timedelta, **handled_exceptions: tuple[type(Excepti
                     if handled_exceptions:
                         if ex in handled_exceptions:
                             exc = ex
-                        else:
                             pass
+                        else:
+                            raise ex
+                            # pass
                     else:
                         exc = ex
+                        # raise ex
 
                 time.sleep(delay.total_seconds())
 
