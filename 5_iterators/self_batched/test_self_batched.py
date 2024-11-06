@@ -1,4 +1,4 @@
-from more_itertools import batched as real_batched
+from itertools import batched as real_batched
 
 import pytest
 
