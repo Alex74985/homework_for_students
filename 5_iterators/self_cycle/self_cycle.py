@@ -1,3 +1,4 @@
+import itertools
 from typing import Generator, Iterable, TypeVar
 
 T = TypeVar("T")
@@ -13,30 +14,36 @@ def cycle(obj: Iterable[T]) -> Generator[T, None, None]:
 class Cycle:
     def __init__(self, obj: Iterable[T]):
         """Реализуйте класс"""
-        self.obj = obj
-        self.i = 1
+        self.obj = list(obj)
+        self.i = 0
 
     def __next__(self):
-        if self.i <= len(self.obj):
-            el = self.i
+        if self.i < len(self.obj):
+            element = self.obj[self.i]
             self.i += 1
-            return el
+            return element
         else:
-        #     raise StopIteration
-            self.i = 1
-            el = self.i
+            self.i = 0
+            element = self.obj[self.i]
             self.i += 1
-            return el
+            return element
 
     def __iter__(self):
         return self
 
 
-it = Cycle('1234')
-
+test = ["1234", [1, 2, 3, 4], {1: 1, 2: 2, 3: 3}, {1, 2, 3, 4}, (1, 2, 3, 4)]
 count = 8
 
-for i, el in enumerate(it):
-    if i >= count:
-        break
-    print(el)
+
+for el in test:
+    it = Cycle(el)
+    rc = itertools.cycle(el)
+    for i, e, in enumerate(zip(it, rc)):
+        if i >= count:
+            break
+        print(i, '-->', list(map(lambda y: [type(y), y], e)))
+
+
+
+

@@ -23,28 +23,27 @@ class Chain:
         return self
 
     def __next__(self):
-        I = self.i
-        if I < len(self.obj):
-            if self.j < len(self.obj[self.i]):
-                J = self.j
-                self.j += 1
-            else:
-                self.j = 0
-                J = self.j
-                I = self.i
-                self.i += 1
-        else:
+        i = self.i
+        j = self.j
+        if i == len(self.obj):
             raise StopIteration
-        return self.obj[I][J]
+        if j < len(self.obj[i]) - 1:
+            self.j += 1
+        else:
+            self.i += 1
+            self.j = 0
+        return self.obj[i][j]
 
 
 #
-# test = itertools.chain("1234", [1, 2, 3, 4], ["a", "b", 1], {1: 1, 2: 2})
+test = itertools.chain("1234", [1, 2, 3, 4], ["a", "b", 1], {1: 1, 2: 2})
 #
-# ch = Chain("1234", [1, 2, 3, 4], ["a", "b", 1], {1: 10, 2: 20})
+ch = Chain("1234", [1, 2, 3, 4], ["a", "b", 1], {1: 10, 2: 20})
 #
-# print(*test)
-# # print(*ch)
+print(f'RC elements: ')
+print(*list(map(lambda x: str(x) + ' --> ' + str(type(x)), test)), sep='\n')
+print(f'MC elements: ')
+print(*list(map(lambda x: str(x) + ' --> ' + str(type(x)), ch)), sep='\n')
 #
 # # print(ch.obj)
 #
